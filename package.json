@@ -1,0 +1,86 @@
+{
+  "name": "@source4society/react-authapp-container",
+  "version": "1.0.0",
+  "description": "A react container designed to be used with react-boilerplate for the purpose of handling common global application tasks such as storing authentication tokens and associated user data or triggering application wide messaging",
+  "main": "lib/index.js",
+  "repository": "https://github.com/source4societyorg/react-authapp-container.git",
+  "author": "Source 4 Society",
+  "license": "AGPL-3.0",
+  "private": false,
+  "scripts": {
+    "test": "eslint ./src/*.js ./tests/*.js && jest --coverage",
+    "build": "babel src/index.js --minified --out-file lib/index.js && babel src/saga.js --minified --out-file lib/saga.js && babel src/actions.js --minified --out-file lib/actions.js && babel src/constants.js --minified --out-file lib/constants.js && babel src/propTypes.js --minified --out-file lib/propTypes.js && babel src/selectors.js --minified --out-file lib/selectors.js && babel src/states.js --minified --out-file lib/states.js && babel src/reducer.js --minified --out-file lib/reducer.js",
+    "prepublish": "npm run build"
+  },
+  "jest": {
+    "coverageReporters": [
+      "text",
+      "html"
+    ],
+    "coverageDirectory": "./coverage",
+    "collectCoverage": true,
+    "collectCoverageFrom": [
+      "src/*.{js,jsx}"
+    ],
+    "coverageThreshold": {
+      "global": {
+        "statements": 99,
+        "branches": 99,
+        "functions": 99,
+        "lines": 99
+      }
+    },
+    "moduleDirectories": [
+      "node_modules"
+    ],
+    "setupTestFrameworkScriptFile": "<rootDir>/test-bundler.js",
+    "testRegex": "tests/.*\\.test\\.js$"
+  },
+  "dependencies": {
+    "@source4society/scepter-reducer-lib": "^1.0.0",
+    "@source4society/scepter-utility-lib": "^1.1.0",
+    "@source4society/scepter-validation-lib": "^0.0.3",
+    "@source4society/scepter-webui-utilities": "^1.0.0",
+    "@source4society/react-authapp-container": "1.0.0",
+    "immutable": "3.8.1",
+    "moment": "^2.20.1",
+    "prop-types": "15.5.10",
+    "react": "15.6.1",
+    "react-dom": "15.6.1",
+    "react-redux": "5.0.5",
+    "react-router-dom": "4.1.1",
+    "react-router-redux": "5.0.0-alpha.6",
+    "redux": "^3.7.2",
+    "redux-immutable": "^4.0.0",
+    "redux-saga": "^0.16.0",
+    "reselect": "3.0.1"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-core": "6.24.1",
+    "babel-eslint": "7.2.3",
+    "babel-jest": "^22.4.1",
+    "babel-loader": "7.1.0",
+    "babel-plugin-dynamic-import-node": "1.0.2",
+    "babel-plugin-react-intl": "2.3.1",
+    "babel-plugin-react-transform": "2.0.2",
+    "babel-plugin-styled-components": "1.1.4",
+    "babel-plugin-transform-es2015-modules-commonjs": "6.24.1",
+    "babel-plugin-transform-react-constant-elements": "6.23.0",
+    "babel-plugin-transform-react-inline-elements": "6.22.0",
+    "babel-plugin-transform-react-remove-prop-types": "0.4.5",
+    "babel-preset-env": "1.5.1",
+    "babel-preset-react": "6.24.1",
+    "babel-preset-stage-0": "6.24.1",
+    "eslint": "3.19.0",
+    "enzyme": "2.8.2",
+    "eslint-config-airbnb": "15.0.1",
+    "eslint-config-airbnb-base": "11.2.0",
+    "eslint-plugin-import": "2.7.0",
+    "eslint-plugin-jest": "^21.5.0",
+    "eslint-plugin-jsx-a11y": "5.0.3",
+    "eslint-plugin-react": "^7.6.1",
+    "eslint-plugin-redux-saga": "^0.6.0",
+    "jest-cli": "^21.0.0"
+  }
+}
