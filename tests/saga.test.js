@@ -1,12 +1,12 @@
 import { takeLatest } from 'redux-saga/effects';
 import moment from 'moment';
-import localStorageData, {
+import localStorageSaga, {
     makeApiCall,
     sagaHandler,
     handleDoubleCookieFunction,
-    fetchLocalStorageData,
-    putInLocalStorage,
-    loadAuthDataFromLocalStorage,
+    fetchLocalStorageDataSaga,
+    putInLocalStorageSaga,
+    loadAuthDataFromLocalStorageSaga,
     checkJwtExpiration,
     validateReducerKeyFunction,
     outputErrorLogFunction,
@@ -125,7 +125,7 @@ test('handleDoubleCookieFunction adds cookie to local storage if it is passed in
   expect(generator.next().done).toBeTruthy();
 });
 
-test('fetchLocalStorageData saga will retrieve a result from local storage', () => {
+test('fetchLocalStorageDataSaga saga will retrieve a result from local storage', () => {
   const mockFetchedLocalStorageItemAction = { hasProperties: 'mockFetchedLocalStorageItemAction' };
   const mockAction = { key: 'mockKey', hasProperties: 'mockAction' };
   const mockLocalStorage = {
@@ -140,13 +140,13 @@ test('fetchLocalStorageData saga will retrieve a result from local storage', () 
     expect(result).toEqual(mockFetchedLocalStorageItemAction);
     return mockFetchedLocalStorageItemAction;
   };
-  const generator = fetchLocalStorageData(mockAction, mockFetchedLocalStorageItem);
+  const generator = fetchLocalStorageDataSaga(mockAction, mockFetchedLocalStorageItem);
   const put = generator.next().value;
   expect(put.PUT.action).toEqual(mockFetchedLocalStorageItemAction);
   expect(generator.next().done).toBeTruthy();
 });
 
-test('putInLocalStorage will place the key/value pair specified by the action into localStorage', () => {
+test('putInLocalStorageSaga will place the key/value pair specified by the action into localStorage', () => {
   const mockKey = 'mockKey';
   const mockValue = 'mockValue';
   const mockAction = { key: mockKey, value: mockValue };
@@ -162,7 +162,7 @@ test('putInLocalStorage will place the key/value pair specified by the action in
     },
   };
   window.localStorage = mockLocalStorage;
-  const generator = putInLocalStorage(mockAction, mockPlacedInLocalStorageActionCreator);
+  const generator = putInLocalStorageSaga(mockAction, mockPlacedInLocalStorageActionCreator);
   const put = generator.next().value;
   expect(put.PUT.action).toEqual(mockAction);
   expect(generator.next().done).toBeTruthy();
@@ -170,6 +170,7 @@ test('putInLocalStorage will place the key/value pair specified by the action in
 
 test('loadAuthDataFromLocalStorage pulls the authenticated properties from local storage and posts the event', () => {
   const mockLocalStorageResult = '["mockLocalStorageResult"]';
+  const mockAction = { hasProperties: 'mockAction' };
   const mockLocalStorage = {
     getItem: (key) => {
       if (['jwt', 'userId', 'username', 'userRoles', 'expires', 'jwtClaims'].indexOf(key) < 0) {
@@ -189,26 +190,26 @@ test('loadAuthDataFromLocalStorage pulls the authenticated properties from local
     return mockActionCreated;
   };
   window.localStorage = mockLocalStorage;
-  const generator = loadAuthDataFromLocalStorage(mockLoadedAuthFromLocalStorageActionCreator);
+  const generator = loadAuthDataFromLocalStorageSaga(mockAction, mockLoadedAuthFromLocalStorageActionCreator);
   const put = generator.next().value;
   expect(put.PUT.action).toEqual(mockActionCreated);
   expect(generator.next().done).toBeTruthy();
 });
 
 test('saga action listener localStorageData listens for the right actions', () => {
-  const generator = localStorageData();
+  const generator = localStorageSaga();
   let fork = generator.next().value;
   expect(fork.FORK.fn.name).toEqual(takeLatest.name);
   expect(fork.FORK.args[0]).toEqual(FETCH_LOCAL_STORAGE_ITEM);
-  expect(fork.FORK.args[1]).toBe(fetchLocalStorageData);
+  expect(fork.FORK.args[1]).toBe(fetchLocalStorageDataSaga);
   fork = generator.next().value;
   expect(fork.FORK.fn.name).toEqual(takeLatest.name);
   expect(fork.FORK.args[0]).toEqual(PLACE_IN_LOCAL_STORAGE);
-  expect(fork.FORK.args[1]).toBe(putInLocalStorage);
+  expect(fork.FORK.args[1]).toBe(putInLocalStorageSaga);
   fork = generator.next().value;
   expect(fork.FORK.fn.name).toEqual(takeLatest.name);
   expect(fork.FORK.args[0]).toEqual(LOAD_AUTH_FROM_LOCAL_STORAGE);
-  expect(fork.FORK.args[1]).toBe(loadAuthDataFromLocalStorage);
+  expect(fork.FORK.args[1]).toBe(loadAuthDataFromLocalStorageSaga);
   expect(generator.next().done).toBeTruthy();
 });
 

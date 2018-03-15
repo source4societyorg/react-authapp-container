@@ -92,19 +92,19 @@ export function* handleDoubleCookieFunction(result, injectedFetchedDoubleCookie)
   }
 }
 
-export function* fetchLocalStorageData(action, injectedFetchedLocalStorageItem) {
+export function* fetchLocalStorageDataSaga(action, injectedFetchedLocalStorageItem) {
   const fetchedLocalStorageItemAction = valueOrDefault(injectedFetchedLocalStorageItem, fetchedLocalStorageItem);
   const result = valueOrDefault(localStorage.getItem(action.key), action.defaultValue);
   yield put(fetchedLocalStorageItemAction(action.key, result));
 }
 
-export function* putInLocalStorage(action, injectedPlacedInLocalStorage) {
+export function* putInLocalStorageSaga(action, injectedPlacedInLocalStorage) {
   const placedInLocalStorageAction = valueOrDefault(injectedPlacedInLocalStorage, placedInLocalStorage);
   localStorage.setItem(action.key, action.value);
   yield put(placedInLocalStorageAction(action.key, action.value));
 }
 
-export function* loadAuthDataFromLocalStorage(injectLoadedAuthFromLocalStorage) {
+export function* loadAuthDataFromLocalStorageSaga(action, injectLoadedAuthFromLocalStorage) {
   const loadedAuthFromLocalStorageActionCreator = valueOrDefault(injectLoadedAuthFromLocalStorage, loadedAuthFromLocalStorage);
   const jwt = localStorage.getItem('jwt');
   const userId = localStorage.getItem('userId');
@@ -115,10 +115,10 @@ export function* loadAuthDataFromLocalStorage(injectLoadedAuthFromLocalStorage) 
   yield put(loadedAuthFromLocalStorageActionCreator(jwt, userId, username, userRoles, expires, jwtClaims));
 }
 
-export default function* localStorageData() {
-  yield takeLatest(FETCH_LOCAL_STORAGE_ITEM, fetchLocalStorageData);
-  yield takeLatest(PLACE_IN_LOCAL_STORAGE, putInLocalStorage);
-  yield takeLatest(LOAD_AUTH_FROM_LOCAL_STORAGE, loadAuthDataFromLocalStorage);
+export default function* localStorageSaga() {
+  yield takeLatest(FETCH_LOCAL_STORAGE_ITEM, fetchLocalStorageDataSaga);
+  yield takeLatest(PLACE_IN_LOCAL_STORAGE, putInLocalStorageSaga);
+  yield takeLatest(LOAD_AUTH_FROM_LOCAL_STORAGE, loadAuthDataFromLocalStorageSaga);
 }
 
 export const checkJwtExpiration = (injectedJwt, expires) => {
