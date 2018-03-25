@@ -1,8 +1,7 @@
 import React from 'react';
-import { reducerInjector, sagaInjector } from '@source4society/scepter-webui-utilities';
+import { reducerInjector, sagaInjector } from '@source4society/scepter-ui-utilities';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
-import { withRouter } from 'react-router-dom';
 import { createStructuredSelector } from 'reselect';
 import { loadAuthFromLocalStorage } from './actions';
 import propTypes from './propTypes';
@@ -19,8 +18,9 @@ export class App extends React.PureComponent { // eslint-disable-line react/pref
   }
 
   render() {
-    const ShellComponent = this.props.shellComponent;
-    const LoadingIndicatorComponent = this.props.loadingIndicatorComponent;
+    const { shellComponent, loadingIndicatorComponent } = this.props;
+    const ShellComponent = shellComponent;
+    const LoadingIndicatorComponent = loadingIndicatorComponent;
     return this.props.loadedAuthFromLocalStorage ? (
       <ShellComponent
         isAuthenticated={this.props.isAuthenticated}
@@ -40,7 +40,7 @@ export class App extends React.PureComponent { // eslint-disable-line react/pref
 App.propTypes = propTypes;
 
 export const mapDispatchToProps = (dispatch) => ({
-  loadAuthFromLocalStorage: () => dispatch(loadAuthFromLocalStorage()),
+  loadAuthFromLocalStorage: (storageMechanism) => dispatch(loadAuthFromLocalStorage(storageMechanism)),
 });
 
 export const mapStateToProps = createStructuredSelector(stateToProps());
@@ -48,8 +48,8 @@ export const withReducer = reducerInjector({ key: 'app', reducer });
 export const withSaga = sagaInjector({ key: 'app', saga });
 export const withConnect = connect(mapStateToProps, mapDispatchToProps);
 
-export default withRouter(compose(
+export default compose(
   withReducer,
   withSaga,
   withConnect,
-)(App));
+)(App);

@@ -1,5 +1,5 @@
 # react-authapp-container
-A boilerplate app container that contains authentication sagas (react-boilerplate)
+A boilerplate app container that contains authentication sagas (react-boilerplate/react-native)
 
 [![scepter-logo](http://res.cloudinary.com/source-4-society/image/upload/v1519221119/scepter_hzpcqt.png)](https://github.com/source4societyorg/SCEPTER-core)
 
@@ -25,7 +25,7 @@ Using yarn
 
 ## Setup
 
-  This container is intended to be used with [SCEPTER-webui](https://github.com/SCEPTER-webui) which is a slightly modified fork of [react-boilerplate](https://github.com/react-boilerplate). Many of the dependencies required by this module are defined in the webui project's `project.json`
+  This container is intended to be used with [SCEPTER-webui](https://github.com/SCEPTER-webui) which is a modified fork of [react-boilerplate](https://github.com/react-boilerplate) or [SCEPTER-mobileui](https://github.com/SCEPTER-mobileui) based off of React Native.
 
 ## Example
 
@@ -46,3 +46,6 @@ The shell will receive the following props from the App container:
   `appProps`
 
 Please see the `action.js`, `reducer.js`, `selectors.js` and `saga.js` files for an understanding of how to manipulate the value of these properties.
+
+## React Native
+For React Native applications, you must set localStorage to be the AsyncsStorage object on the global scope before mounting this container. You can replace localStorage with another storage implementation of choice so long as the interface is similar.
