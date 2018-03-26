@@ -2,11 +2,11 @@
 # yarn lockfile v1
 
 
-"@source4society/scepter-app-utilities@^2.0.3":
-  version "2.0.3"
-  resolved "https://registry.yarnpkg.com/@source4society/scepter-app-utilities/-/scepter-app-utilities-2.0.3.tgz#1ef9f3d82e34c431524cd55ac13143303baf50d6"
+"@source4society/scepter-app-utilities@^2.1.1":
+  version "2.1.1"
+  resolved "https://registry.yarnpkg.com/@source4society/scepter-app-utilities/-/scepter-app-utilities-2.1.1.tgz#f0e5eba81b8e018161e83eaf6e2ca570e4e8bc45"
   dependencies:
-    "@source4society/scepter-utility-lib" "^1.1.0"
+    "@source4society/scepter-utility-lib" "^2.0.0"
     hoist-non-react-statics "^2.5.0"
     immutable "^3.8.2"
     lodash "^4.17.5"
@@ -23,11 +23,11 @@
     "@source4society/scepter-utility-lib" "^1.1.0"
     immutable "^3.8.2"
 
-"@source4society/scepter-ui-utilities@^1.0.0":
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/@source4society/scepter-ui-utilities/-/scepter-ui-utilities-1.0.0.tgz#7e8512ee0b4ec8a8a73844491b48cab717492133"
+"@source4society/scepter-ui-utilities@^1.1.1":
+  version "1.1.1"
+  resolved "https://registry.yarnpkg.com/@source4society/scepter-ui-utilities/-/scepter-ui-utilities-1.1.1.tgz#a447f1d6485971dbfb392c84b569e38f1d10ac17"
   dependencies:
-    "@source4society/scepter-app-utilities" "^2.0.3"
+    "@source4society/scepter-app-utilities" "^2.1.1"
     babel-polyfill "6.23.0"
     exports-loader "^0.6.4"
     history "^4.7.2"
