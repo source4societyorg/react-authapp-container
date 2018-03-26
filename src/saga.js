@@ -4,6 +4,7 @@ import {
   isEmpty,
   valueOrDefault,
   notEmptyAt,
+  jsonParseOrDefault,
 } from '@source4society/scepter-utility-lib';
 import {
   put,
@@ -109,9 +110,9 @@ export function* loadAuthDataFromLocalStorageSaga(action, injectLoadedAuthFromLo
   const jwt = localStorage.getItem('jwt');
   const userId = localStorage.getItem('userId');
   const username = localStorage.getItem('username');
-  const userRoles = JSON.parse(localStorage.getItem('userRoles'));
+  const userRoles = jsonParseOrDefault(localStorage.getItem('userRoles'));
   const expires = Number(localStorage.getItem('expires'));
-  const jwtClaims = JSON.parse(localStorage.getItem('jwtClaims'));
+  const jwtClaims = jsonParseOrDefault(localStorage.getItem('jwtClaims'));
   yield put(loadedAuthFromLocalStorageActionCreator(jwt, userId, username, userRoles, expires, jwtClaims));
 }
 

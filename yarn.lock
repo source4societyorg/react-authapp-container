@@ -58,6 +58,20 @@
     redux-saga "^0.16.0"
     reselect "3.0.1"
 
+"@source4society/scepter-utility-lib@^2.1.0":
+  version "2.1.0"
+  resolved "https://registry.yarnpkg.com/@source4society/scepter-utility-lib/-/scepter-utility-lib-2.1.0.tgz#a91f329200adb18810e8c2b50eda5e3163ffc0ca"
+  dependencies:
+    "@source4society/scepter-utility-lib" "^1.1.0"
+    immutable "3.8.1"
+    moment "^2.20.1"
+    react "15.6.1"
+    react-dom "15.6.1"
+    react-router-dom "4.1.1"
+    react-test-renderer "15.6.1"
+    redux-saga "^0.16.0"
+    reselect "3.0.1"
+
 "@source4society/scepter-validation-lib@^0.0.3":
   version "0.0.3"
   resolved "https://registry.yarnpkg.com/@source4society/scepter-validation-lib/-/scepter-validation-lib-0.0.3.tgz#f29a136cb498304bdce043b31d6e8c92d74030a0"
