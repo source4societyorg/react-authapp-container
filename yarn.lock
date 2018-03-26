@@ -44,6 +44,20 @@
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/@source4society/scepter-utility-lib/-/scepter-utility-lib-1.1.0.tgz#2a5ef0ff8a499eacde477d57cef250e2501c3293"
 
+"@source4society/scepter-utility-lib@^2.0.0":
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/@source4society/scepter-utility-lib/-/scepter-utility-lib-2.0.0.tgz#0c74aadb2b35f2015d64d4fc4e6d28fafdeeb258"
+  dependencies:
+    "@source4society/scepter-utility-lib" "^1.1.0"
+    immutable "3.8.1"
+    moment "^2.20.1"
+    react "15.6.1"
+    react-dom "15.6.1"
+    react-router-dom "4.1.1"
+    react-test-renderer "15.6.1"
+    redux-saga "^0.16.0"
+    reselect "3.0.1"
+
 "@source4society/scepter-validation-lib@^0.0.3":
   version "0.0.3"
   resolved "https://registry.yarnpkg.com/@source4society/scepter-validation-lib/-/scepter-validation-lib-0.0.3.tgz#f29a136cb498304bdce043b31d6e8c92d74030a0"

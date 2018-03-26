@@ -1,6 +1,6 @@
 {
   "name": "@source4society/react-authapp-container",
-  "version": "2.1.0",
+  "version": "2.1.1",
   "description": "A react container designed to be used with react-boilerplate or react-native for the purpose of handling common global application tasks such as storing authentication tokens and associated user data or triggering application wide messaging",
   "main": "lib/index.js",
   "repository": "https://github.com/source4societyorg/react-authapp-container.git",
@@ -43,7 +43,7 @@
   "dependencies": {
     "@source4society/scepter-reducer-lib": "^1.0.0",
     "@source4society/scepter-ui-utilities": "^1.0.0",
-    "@source4society/scepter-utility-lib": "^1.1.0",
+    "@source4society/scepter-utility-lib": "^2.0.0",
     "@source4society/scepter-validation-lib": "^0.0.3",
     "immutable": "3.8.1",
     "moment": "^2.20.1",
