@@ -31,30 +31,32 @@ import {
   LOAD_AUTH_FROM_LOCAL_STORAGE,
 } from './constants';
 
-export const makeApiCall = (ApiInterface) => function* apiCall(
-  apiToCall,
-  parameters,
-  injectedExtraParams,
-  injectMakeSelectJwt,
-  injectMakeSelectExpires,
-  injectMakeSelectDoubleCookie,
-  injectedHandleDoubleCookie,
-) {
-  const extraParams = valueOrDefault(extraParams, injectedExtraParams);
-  const makeSelectJwtSelector = valueOrDefault(injectMakeSelectJwt, makeSelectJwt);
-  const makeSelectExpiresSelector = valueOrDefault(injectMakeSelectExpires, makeSelectExpires);
-  const makeSelectDoubleCookieSelector = valueOrDefault(injectMakeSelectDoubleCookie, makeSelectDoubleCookie);
-  const handleDoubleCookie = valueOrDefault(injectedHandleDoubleCookie, handleDoubleCookieFunction);
-  let jwt = yield select(makeSelectJwtSelector());
-  const expires = yield select(makeSelectExpiresSelector());
-  const doubleCookie = yield select(makeSelectDoubleCookieSelector());
-  jwt = checkJwtExpiration(jwt, expires);
-  const apiInterface = new ApiInterface(jwt, doubleCookie);
-  const result = yield call([apiInterface, apiToCall], parameters, ...extraParams);
-  validateApiResult(result);
-  yield* handleDoubleCookie(result);
-  return result;
-};
+export function makeApiCall(ApiInterface) {
+  return function* apiCall(
+    apiToCall,
+    parameters,
+    injectedExtraParams,
+    injectMakeSelectJwt,
+    injectMakeSelectExpires,
+    injectMakeSelectDoubleCookie,
+    injectedHandleDoubleCookie,
+  ) {
+    const extraParams = valueOrDefault(injectedExtraParams, []);
+    const makeSelectJwtSelector = valueOrDefault(injectMakeSelectJwt, makeSelectJwt);
+    const makeSelectExpiresSelector = valueOrDefault(injectMakeSelectExpires, makeSelectExpires);
+    const makeSelectDoubleCookieSelector = valueOrDefault(injectMakeSelectDoubleCookie, makeSelectDoubleCookie);
+    const handleDoubleCookie = valueOrDefault(injectedHandleDoubleCookie, handleDoubleCookieFunction);
+    let jwt = yield select(makeSelectJwtSelector());
+    const expires = yield select(makeSelectExpiresSelector());
+    const doubleCookie = yield select(makeSelectDoubleCookieSelector());
+    jwt = checkJwtExpiration(jwt, expires);
+    const apiInterface = new ApiInterface(jwt, doubleCookie);
+    const result = yield call([apiInterface, apiToCall], parameters, extraParams);
+    validateApiResult(result);
+    yield* handleDoubleCookie(result);
+    return result;
+  };
+}
 
 export function* sagaHandler(
   action,
